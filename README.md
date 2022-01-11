@@ -28,7 +28,6 @@ Yukarıdaki gereksinimler doğrultusunda ürünlere, stoğa, müşterilere ait b
 
 
 Tedarikçi Tablosu ve Nitelikleri:
-Tedarikci
 TedarikciID
 TedarikciAdi
 TedarikciUlke
@@ -37,7 +36,6 @@ TedarikciAdres
 
 
 Müşteri Tablosu ve Nitelikleri:
-Musteri
 MusteriID
 MusteriAdi
 MusteriSoyadi
@@ -45,7 +43,6 @@ MusteriTelNo
 
 
 Ürün Tablosu ve Nitelikleri:
-Urun
 UrunID
 UrunAdi
 UrunKodu
@@ -57,7 +54,6 @@ TedarikciID
 
 
 Stok Tablosu ve Nitelikleri:
-Stok
 StokID
 UrunID
 StokSayisi
@@ -67,7 +63,6 @@ SonKullanmaTarihi
 
 
 Satış Tablosu ve Nitelikleri: 
-Satis
 SatisID
 UrunID
 MusteriID
@@ -76,7 +71,6 @@ IadeTarihi
 
 
 İade Tablosu ve Nitelikleri:
-Iade
 IadeID
 SatisID
 IadeTarihi
