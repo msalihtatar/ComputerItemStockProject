@@ -38,6 +38,11 @@ namespace WindowsFormsApp1
             var suppliers = _supplierService.getAll();
             cmbTedarikciler.DataSource = suppliers.Data;
             cmbTedarikcilerListe.DataSource = suppliers.Data;
+
+            if (dataGridView1 != null && dataGridView1.RowCount > 0)
+            {
+                btnUpdate.Enabled = false;
+            }
         }
 
         private void btnList_Click(object sender, EventArgs e)
@@ -49,8 +54,7 @@ namespace WindowsFormsApp1
             }
 
             var sonuc = _productService.getProductDetails(txtUrunAdiListe.Text,txtUrunKoduListe.Text,supplierid);
-            dataGridView1.DataSource = sonuc.Data;
-            
+            dataGridView1.DataSource = sonuc.Data;            
         }
 
         private void btnUrunEkle_Click(object sender, EventArgs e)
@@ -286,6 +290,8 @@ namespace WindowsFormsApp1
 
                     if (cmbTedarikcilerListe.SelectedValue != null)
                     {
+                        btnUpdate.Enabled = true;
+
                         lblInfo.Text = "Ürün başarıyla getirildi.";
                         return;
                     }
@@ -343,12 +349,6 @@ namespace WindowsFormsApp1
                     lblInfo2.Text = "Girdiğiniz yıllar arasında en az veya en çok satılan ürünleri görmek istiyorsanız, satış limitini giriniz.";
                     return;
                 }
-
-                //if (string.IsNullOrEmpty(txtUrunSayisi.Text))
-                //{
-                //    lblInfo2.Text = "Lütfen görmek istediğiniz başlangıç ve bitiş yıllarını giriniz.";
-                //    return;
-                //}
 
                 DateTime startDate;
                 DateTime endDate;
