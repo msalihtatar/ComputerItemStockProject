@@ -9,7 +9,6 @@ namespace DataAccess.Abstract
     public interface ICustomerDal
     {
         void add(Customer customer);
-        List<SaleReturnDetailDto> getSaleReturnDetails();
         Customer getCustomerById(int customerId);
         Customer GetCustomerByPhoneNumber(string phoneNo);
     }

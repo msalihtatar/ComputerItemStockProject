@@ -49,15 +49,5 @@ namespace Business.Concrete
             }
             return new ErrorDataResult<Customer>(null, "Müşteri getirilirken bir hata oluştu.");
         }
-
-        public IDataResult<List<SaleReturnDetailDto>> getSaleReturnDetails()
-        {
-            var result = _customerDal.getSaleReturnDetails();
-            if (result != null)
-            {
-                return new SuccessDataResult<List<SaleReturnDetailDto>>(result, "Satışlar listelendi.");
-            }
-            return new ErrorDataResult<List<SaleReturnDetailDto>>(null, "Satış bilgileri getirilirken bir hata oluştu.");
-        }
     }
 }

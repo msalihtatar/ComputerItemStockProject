@@ -11,7 +11,6 @@ namespace Business.Abstract
     {
         IResult add(Customer customer);
         IDataResult<Customer> GetCustomerByPhoneNumber(string phoneNo);
-        IDataResult<List<SaleReturnDetailDto>> getSaleReturnDetails();
         IDataResult<Customer>getCustomerById(int customerId);
     }
 }

@@ -5,6 +5,7 @@ using Entities.Concrete;
 using Entities.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
@@ -12,9 +13,13 @@ namespace Business.Concrete
     public class ProductManager : IProductService
     {
         IProductDal _productDal;
-        public ProductManager(IProductDal productDal)
+        IStockService _stockService;
+        ISupplierService _supplierService;
+        public ProductManager(IProductDal productDal, IStockService stockService, ISupplierService supplierService)
         {
             _productDal = productDal;
+            _stockService = stockService;
+            _supplierService = supplierService;
         }
 
         public IResult add(Product product)
@@ -30,6 +35,89 @@ namespace Business.Concrete
             }
         }
 
+        public IResult addProductToStock(Product product, int StockAmount)
+        {
+            try
+            {
+                var result = add(product);
+
+                if (result.Success)
+                {
+                    var hasProduct = getProductByCode(product.ProductCode);
+
+                    if (hasProduct.Success)
+                    {
+                        Stock stock = new Stock
+                        {
+                            ProductID = hasProduct.Data.ProductID,
+                            StockAmount = StockAmount
+                        };
+
+                        var hasStock = _stockService.add(stock);
+
+                        if (hasStock.Success)
+                        {
+                            return new SuccessResult(hasStock.Message); 
+                        }
+                        return new ErrorResult(hasStock.Message);
+                    }
+                    return new ErrorResult(hasProduct.Message);
+                }
+                return new ErrorResult(result.Message);
+            }
+            catch (Exception ex)
+            {
+                return new ErrorResult("Hata mesajı: " + ex.Message);
+            }
+        }
+
+        public IResult deleteProductToStock(int ProductID, string ProductCode)
+        {
+            try
+            {
+                var result = _stockService.delete(ProductID);
+
+                if (result.Success)
+                {
+                    var result2 = delete(ProductCode);
+
+                    if (result2.Success)
+                    {
+                        return new SuccessResult(result2.Message);
+                    }
+                    return new ErrorResult(result2.Message);
+                }
+                return new ErrorResult(result.Message);
+            }
+            catch (Exception ex)
+            {
+                return new ErrorResult("Hata mesajı: " + ex.Message);
+            }
+        }
+
+        public IResult updateProductInStock(Product product, Stock stock)
+        {
+            try
+            {
+                var result = _stockService.update(stock);
+                if (result.Success)
+                {
+                    var result1 = update(product);
+
+                    if (result1.Success)
+                    {
+                        return new SuccessResult(result1.Message);
+                    }
+                    return new ErrorResult(result1.Message);
+                }
+                return new ErrorResult(result.Message);
+            }
+            catch (Exception ex)
+            {
+                return new ErrorResult("Hata mesajı: " + ex.Message);
+            }
+        }
+
         public IResult delete(string productCode)
         {
             try
@@ -37,9 +125,9 @@ namespace Business.Concrete
                 _productDal.delete(productCode);
                 return new SuccessResult("Ürün Silindi.");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return new ErrorResult("Ürün silinirken bir hata oluştu.");
+                return new ErrorResult("Hata Mesajı: " + ex.Message);
             }
         }
 
@@ -49,7 +137,7 @@ namespace Business.Concrete
             {
                 var result = _productDal.getOutOfStock(limit);
 
-                if (result != null)
+                if (result != null && result.Count > 0)
                 {
                     return new SuccessDataResult<List<ProductDetailDto>>(result, "Stoğu azalan ürünler listelendi.");
                 }
@@ -57,7 +145,7 @@ namespace Business.Concrete
             }
             catch (Exception e)
             {
-                throw e;
+                return new ErrorDataResult<List<ProductDetailDto>>(null, "Hata Mesajı: " + e.Message);
             }
         }
 
@@ -73,10 +161,9 @@ namespace Business.Concrete
                 }
                 return new ErrorDataResult<Product>(null, "Ürünler getirilirken bir hata oluştu.");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                return new ErrorDataResult<Product>(null, "Hata mesajı: " + ex.Message);
             }
         }
 
@@ -86,7 +173,7 @@ namespace Business.Concrete
             {
                 var result = _productDal.getProductDetails(productName,productCode,supplierId);
 
-                if (result != null)
+                if (result != null && result.Count > 0)
                 {
                     return new SuccessDataResult<List<ProductDetailDto>>(result, "Ürünler listelendi.");
                 }
@@ -94,7 +181,7 @@ namespace Business.Concrete
             }
             catch (Exception e)
             {
-                throw e;
+                return new ErrorDataResult<List<ProductDetailDto>>(null, "Hata mesajı: " + e.Message);
             }
         }
 
@@ -116,9 +203,9 @@ namespace Business.Concrete
                 _productDal.update(product);
                 return new SuccessResult("Ürün güncellendi.");
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return new ErrorResult("Ürün güncellenirken bir hata oluştu.");
+                return new ErrorResult("Hata mesajı: " + e.Message);
             }
         }
     }

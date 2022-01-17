@@ -50,7 +50,7 @@ namespace WindowsFormsApp1
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.btnDelete = new System.Windows.Forms.Button();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.grpUrunList = new System.Windows.Forms.GroupBox();
             this.txtAciklamaListe = new System.Windows.Forms.RichTextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.txtAlisFiyatiList = new System.Windows.Forms.TextBox();
@@ -133,6 +133,34 @@ namespace WindowsFormsApp1
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.saleDetailDtoBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.label47 = new System.Windows.Forms.Label();
+            this.label46 = new System.Windows.Forms.Label();
+            this.label45 = new System.Windows.Forms.Label();
+            this.rxtAciklamaFatura = new System.Windows.Forms.RichTextBox();
+            this.label44 = new System.Windows.Forms.Label();
+            this.txtUrunKoduFatura = new System.Windows.Forms.TextBox();
+            this.label43 = new System.Windows.Forms.Label();
+            this.label42 = new System.Windows.Forms.Label();
+            this.label41 = new System.Windows.Forms.Label();
+            this.txtTelNoFatura = new System.Windows.Forms.TextBox();
+            this.label40 = new System.Windows.Forms.Label();
+            this.txtSoyadFatura = new System.Windows.Forms.TextBox();
+            this.txtAdFatura = new System.Windows.Forms.TextBox();
+            this.label39 = new System.Windows.Forms.Label();
+            this.label38 = new System.Windows.Forms.Label();
+            this.txtIadeTutariFatura = new System.Windows.Forms.TextBox();
+            this.txtSatisFiyatiFatura = new System.Windows.Forms.TextBox();
+            this.lblIadeTutariFatura = new System.Windows.Forms.Label();
+            this.label37 = new System.Windows.Forms.Label();
+            this.txtIadeTarihiFatura = new System.Windows.Forms.TextBox();
+            this.txtSatisTarihiFatura = new System.Windows.Forms.TextBox();
+            this.lblIadeTarihiFatura = new System.Windows.Forms.Label();
+            this.label36 = new System.Windows.Forms.Label();
+            this.txtSatisKoduFatura = new System.Windows.Forms.TextBox();
+            this.txtIadeKoduFatura = new System.Windows.Forms.TextBox();
+            this.lblIadeKoduFatura = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
             this.lblInfo3 = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.label34 = new System.Windows.Forms.Label();
@@ -174,7 +202,7 @@ namespace WindowsFormsApp1
             ((System.ComponentModel.ISupportInitialize)(this.customerBindingSource)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.grpUrunList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.supplierBindingSource)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -183,6 +211,7 @@ namespace WindowsFormsApp1
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.saleDetailDtoBindingSource1)).BeginInit();
             this.tabPage3.SuspendLayout();
+            this.groupBox7.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.saleReturnDetailDtoBindingSource)).BeginInit();
@@ -194,6 +223,7 @@ namespace WindowsFormsApp1
             // dataGridView1
             // 
             this.dataGridView1.AutoGenerateColumns = false;
+            this.dataGridView1.BackgroundColor = System.Drawing.Color.LightCoral;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.productIDDataGridViewTextBoxColumn,
@@ -209,6 +239,7 @@ namespace WindowsFormsApp1
             this.SaleAmount,
             this.ReturnAmount});
             this.dataGridView1.DataSource = this.productDetailDtoBindingSource;
+            this.dataGridView1.GridColor = System.Drawing.Color.Coral;
             this.dataGridView1.Location = new System.Drawing.Point(15, 306);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
@@ -327,12 +358,13 @@ namespace WindowsFormsApp1
             // 
             // btnList
             // 
+            this.btnList.BackColor = System.Drawing.Color.LightGreen;
             this.btnList.Location = new System.Drawing.Point(761, 115);
             this.btnList.Name = "btnList";
             this.btnList.Size = new System.Drawing.Size(121, 36);
             this.btnList.TabIndex = 1;
             this.btnList.Text = "Ürün Listele";
-            this.btnList.UseVisualStyleBackColor = true;
+            this.btnList.UseVisualStyleBackColor = false;
             this.btnList.Click += new System.EventHandler(this.btnList_Click);
             // 
             // tabControl1
@@ -344,13 +376,14 @@ namespace WindowsFormsApp1
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1583, 656);
+            this.tabControl1.Size = new System.Drawing.Size(1518, 668);
             this.tabControl1.TabIndex = 2;
             // 
             // tabPage1
             // 
+            this.tabPage1.BackColor = System.Drawing.Color.LightCoral;
             this.tabPage1.Controls.Add(this.btnDelete);
-            this.tabPage1.Controls.Add(this.groupBox2);
+            this.tabPage1.Controls.Add(this.grpUrunList);
             this.tabPage1.Controls.Add(this.lblInfo);
             this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Controls.Add(this.dataGridView1);
@@ -358,58 +391,59 @@ namespace WindowsFormsApp1
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1575, 627);
+            this.tabPage1.Size = new System.Drawing.Size(1510, 639);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Stock Transactions";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabPage1.Text = "Stok İşlemleri";
             // 
             // btnDelete
             // 
+            this.btnDelete.BackColor = System.Drawing.Color.Red;
             this.btnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.btnDelete.Location = new System.Drawing.Point(15, 268);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(96, 32);
             this.btnDelete.TabIndex = 11;
             this.btnDelete.Text = "Ürün Sil";
-            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.UseVisualStyleBackColor = false;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
-            // groupBox2
+            // grpUrunList
             // 
-            this.groupBox2.Controls.Add(this.txtAciklamaListe);
-            this.groupBox2.Controls.Add(this.label10);
-            this.groupBox2.Controls.Add(this.txtAlisFiyatiList);
-            this.groupBox2.Controls.Add(this.txtStokLimiti);
-            this.groupBox2.Controls.Add(this.label15);
-            this.groupBox2.Controls.Add(this.btnAzalanStok);
-            this.groupBox2.Controls.Add(this.label9);
-            this.groupBox2.Controls.Add(this.btnUpdate);
-            this.groupBox2.Controls.Add(this.cmbTedarikcilerListe);
-            this.groupBox2.Controls.Add(this.txtStokSayisiListe);
-            this.groupBox2.Controls.Add(this.txtBrandListe);
-            this.groupBox2.Controls.Add(this.txtPriceListe);
-            this.groupBox2.Controls.Add(this.btnList);
-            this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Controls.Add(this.txtUrunAdiListe);
-            this.groupBox2.Controls.Add(this.txtMenseiListe);
-            this.groupBox2.Controls.Add(this.label6);
-            this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Controls.Add(this.label8);
-            this.groupBox2.Controls.Add(this.txtUrunKoduListe);
-            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.groupBox2.Location = new System.Drawing.Point(558, 44);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(935, 218);
-            this.groupBox2.TabIndex = 10;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Ürün Listele/Güncelle";
+            this.grpUrunList.Controls.Add(this.txtAciklamaListe);
+            this.grpUrunList.Controls.Add(this.label10);
+            this.grpUrunList.Controls.Add(this.txtAlisFiyatiList);
+            this.grpUrunList.Controls.Add(this.txtStokLimiti);
+            this.grpUrunList.Controls.Add(this.label15);
+            this.grpUrunList.Controls.Add(this.btnAzalanStok);
+            this.grpUrunList.Controls.Add(this.label9);
+            this.grpUrunList.Controls.Add(this.btnUpdate);
+            this.grpUrunList.Controls.Add(this.cmbTedarikcilerListe);
+            this.grpUrunList.Controls.Add(this.txtStokSayisiListe);
+            this.grpUrunList.Controls.Add(this.txtBrandListe);
+            this.grpUrunList.Controls.Add(this.txtPriceListe);
+            this.grpUrunList.Controls.Add(this.btnList);
+            this.grpUrunList.Controls.Add(this.label1);
+            this.grpUrunList.Controls.Add(this.label2);
+            this.grpUrunList.Controls.Add(this.label3);
+            this.grpUrunList.Controls.Add(this.label4);
+            this.grpUrunList.Controls.Add(this.label5);
+            this.grpUrunList.Controls.Add(this.txtUrunAdiListe);
+            this.grpUrunList.Controls.Add(this.txtMenseiListe);
+            this.grpUrunList.Controls.Add(this.label6);
+            this.grpUrunList.Controls.Add(this.label7);
+            this.grpUrunList.Controls.Add(this.label8);
+            this.grpUrunList.Controls.Add(this.txtUrunKoduListe);
+            this.grpUrunList.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.grpUrunList.Location = new System.Drawing.Point(558, 44);
+            this.grpUrunList.Name = "grpUrunList";
+            this.grpUrunList.Size = new System.Drawing.Size(935, 218);
+            this.grpUrunList.TabIndex = 10;
+            this.grpUrunList.TabStop = false;
+            this.grpUrunList.Text = "Ürün Listele/Güncelle";
             // 
             // txtAciklamaListe
             // 
+            this.txtAciklamaListe.BackColor = System.Drawing.Color.LightCoral;
             this.txtAciklamaListe.Location = new System.Drawing.Point(110, 128);
             this.txtAciklamaListe.Name = "txtAciklamaListe";
             this.txtAciklamaListe.Size = new System.Drawing.Size(138, 75);
@@ -428,6 +462,7 @@ namespace WindowsFormsApp1
             // 
             // txtAlisFiyatiList
             // 
+            this.txtAlisFiyatiList.BackColor = System.Drawing.Color.LightCoral;
             this.txtAlisFiyatiList.Location = new System.Drawing.Point(353, 153);
             this.txtAlisFiyatiList.Name = "txtAlisFiyatiList";
             this.txtAlisFiyatiList.Size = new System.Drawing.Size(100, 22);
@@ -435,6 +470,7 @@ namespace WindowsFormsApp1
             // 
             // txtStokLimiti
             // 
+            this.txtStokLimiti.BackColor = System.Drawing.Color.LightCoral;
             this.txtStokLimiti.Location = new System.Drawing.Point(554, 176);
             this.txtStokLimiti.Name = "txtStokLimiti";
             this.txtStokLimiti.Size = new System.Drawing.Size(100, 22);
@@ -451,13 +487,14 @@ namespace WindowsFormsApp1
             // 
             // btnAzalanStok
             // 
+            this.btnAzalanStok.BackColor = System.Drawing.Color.Orange;
             this.btnAzalanStok.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.btnAzalanStok.Location = new System.Drawing.Point(681, 171);
             this.btnAzalanStok.Name = "btnAzalanStok";
             this.btnAzalanStok.Size = new System.Drawing.Size(237, 32);
             this.btnAzalanStok.TabIndex = 12;
             this.btnAzalanStok.Text = "Stoğu Azalan Ürünleri Getir";
-            this.btnAzalanStok.UseVisualStyleBackColor = true;
+            this.btnAzalanStok.UseVisualStyleBackColor = false;
             this.btnAzalanStok.Click += new System.EventHandler(this.btnAzalanStok_Click);
             // 
             // label9
@@ -473,16 +510,18 @@ namespace WindowsFormsApp1
             // 
             // btnUpdate
             // 
+            this.btnUpdate.BackColor = System.Drawing.Color.LightGreen;
             this.btnUpdate.Location = new System.Drawing.Point(588, 115);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(132, 36);
             this.btnUpdate.TabIndex = 34;
             this.btnUpdate.Text = "Ürün Güncelle";
-            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.UseVisualStyleBackColor = false;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // cmbTedarikcilerListe
             // 
+            this.cmbTedarikcilerListe.BackColor = System.Drawing.Color.LightCoral;
             this.cmbTedarikcilerListe.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.supplierBindingSource, "SupplierID", true));
             this.cmbTedarikcilerListe.DataSource = this.supplierBindingSource;
             this.cmbTedarikcilerListe.DisplayMember = "SupplierName";
@@ -499,6 +538,7 @@ namespace WindowsFormsApp1
             // 
             // txtStokSayisiListe
             // 
+            this.txtStokSayisiListe.BackColor = System.Drawing.Color.LightCoral;
             this.txtStokSayisiListe.Location = new System.Drawing.Point(353, 125);
             this.txtStokSayisiListe.Name = "txtStokSayisiListe";
             this.txtStokSayisiListe.Size = new System.Drawing.Size(100, 22);
@@ -506,6 +546,7 @@ namespace WindowsFormsApp1
             // 
             // txtBrandListe
             // 
+            this.txtBrandListe.BackColor = System.Drawing.Color.LightCoral;
             this.txtBrandListe.Location = new System.Drawing.Point(353, 60);
             this.txtBrandListe.Name = "txtBrandListe";
             this.txtBrandListe.Size = new System.Drawing.Size(100, 22);
@@ -513,6 +554,7 @@ namespace WindowsFormsApp1
             // 
             // txtPriceListe
             // 
+            this.txtPriceListe.BackColor = System.Drawing.Color.LightCoral;
             this.txtPriceListe.Location = new System.Drawing.Point(353, 28);
             this.txtPriceListe.Name = "txtPriceListe";
             this.txtPriceListe.Size = new System.Drawing.Size(100, 22);
@@ -570,6 +612,7 @@ namespace WindowsFormsApp1
             // 
             // txtUrunAdiListe
             // 
+            this.txtUrunAdiListe.BackColor = System.Drawing.Color.LightCoral;
             this.txtUrunAdiListe.Location = new System.Drawing.Point(110, 27);
             this.txtUrunAdiListe.Name = "txtUrunAdiListe";
             this.txtUrunAdiListe.Size = new System.Drawing.Size(100, 22);
@@ -577,6 +620,7 @@ namespace WindowsFormsApp1
             // 
             // txtMenseiListe
             // 
+            this.txtMenseiListe.BackColor = System.Drawing.Color.LightCoral;
             this.txtMenseiListe.Location = new System.Drawing.Point(110, 90);
             this.txtMenseiListe.Name = "txtMenseiListe";
             this.txtMenseiListe.Size = new System.Drawing.Size(100, 22);
@@ -614,6 +658,7 @@ namespace WindowsFormsApp1
             // 
             // txtUrunKoduListe
             // 
+            this.txtUrunKoduListe.BackColor = System.Drawing.Color.LightCoral;
             this.txtUrunKoduListe.Location = new System.Drawing.Point(110, 59);
             this.txtUrunKoduListe.Name = "txtUrunKoduListe";
             this.txtUrunKoduListe.Size = new System.Drawing.Size(100, 22);
@@ -623,7 +668,7 @@ namespace WindowsFormsApp1
             // 
             this.lblInfo.AutoSize = true;
             this.lblInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblInfo.Location = new System.Drawing.Point(42, 16);
+            this.lblInfo.Location = new System.Drawing.Point(29, 13);
             this.lblInfo.Name = "lblInfo";
             this.lblInfo.Size = new System.Drawing.Size(0, 25);
             this.lblInfo.TabIndex = 9;
@@ -659,6 +704,7 @@ namespace WindowsFormsApp1
             // 
             // txtAciklama
             // 
+            this.txtAciklama.BackColor = System.Drawing.Color.LightCoral;
             this.txtAciklama.Location = new System.Drawing.Point(102, 124);
             this.txtAciklama.Name = "txtAciklama";
             this.txtAciklama.Size = new System.Drawing.Size(131, 77);
@@ -667,6 +713,7 @@ namespace WindowsFormsApp1
             // 
             // txtAlisFiyati
             // 
+            this.txtAlisFiyati.BackColor = System.Drawing.Color.LightCoral;
             this.txtAlisFiyati.Location = new System.Drawing.Point(330, 55);
             this.txtAlisFiyati.Name = "txtAlisFiyati";
             this.txtAlisFiyati.Size = new System.Drawing.Size(100, 22);
@@ -683,17 +730,19 @@ namespace WindowsFormsApp1
             // 
             // btnUrunEkle
             // 
+            this.btnUrunEkle.BackColor = System.Drawing.Color.LightGreen;
             this.btnUrunEkle.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.btnUrunEkle.Location = new System.Drawing.Point(431, 176);
             this.btnUrunEkle.Name = "btnUrunEkle";
             this.btnUrunEkle.Size = new System.Drawing.Size(100, 36);
             this.btnUrunEkle.TabIndex = 18;
             this.btnUrunEkle.Text = "Ürün Ekle";
-            this.btnUrunEkle.UseVisualStyleBackColor = true;
+            this.btnUrunEkle.UseVisualStyleBackColor = false;
             this.btnUrunEkle.Click += new System.EventHandler(this.btnUrunEkle_Click);
             // 
             // cmbTedarikciler
             // 
+            this.cmbTedarikciler.BackColor = System.Drawing.Color.LightCoral;
             this.cmbTedarikciler.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.supplierBindingSource, "SupplierID", true));
             this.cmbTedarikciler.DataSource = this.supplierBindingSource;
             this.cmbTedarikciler.DisplayMember = "SupplierName";
@@ -706,6 +755,7 @@ namespace WindowsFormsApp1
             // 
             // txtStokSayisi
             // 
+            this.txtStokSayisi.BackColor = System.Drawing.Color.LightCoral;
             this.txtStokSayisi.Location = new System.Drawing.Point(330, 153);
             this.txtStokSayisi.Name = "txtStokSayisi";
             this.txtStokSayisi.Size = new System.Drawing.Size(100, 22);
@@ -713,6 +763,7 @@ namespace WindowsFormsApp1
             // 
             // txtMarka
             // 
+            this.txtMarka.BackColor = System.Drawing.Color.LightCoral;
             this.txtMarka.Location = new System.Drawing.Point(330, 88);
             this.txtMarka.Name = "txtMarka";
             this.txtMarka.Size = new System.Drawing.Size(100, 22);
@@ -720,6 +771,7 @@ namespace WindowsFormsApp1
             // 
             // txtPrice
             // 
+            this.txtPrice.BackColor = System.Drawing.Color.LightCoral;
             this.txtPrice.Location = new System.Drawing.Point(330, 25);
             this.txtPrice.Name = "txtPrice";
             this.txtPrice.Size = new System.Drawing.Size(100, 22);
@@ -777,6 +829,7 @@ namespace WindowsFormsApp1
             // 
             // txtUrunAdi
             // 
+            this.txtUrunAdi.BackColor = System.Drawing.Color.LightCoral;
             this.txtUrunAdi.Location = new System.Drawing.Point(102, 27);
             this.txtUrunAdi.Name = "txtUrunAdi";
             this.txtUrunAdi.Size = new System.Drawing.Size(100, 22);
@@ -784,6 +837,7 @@ namespace WindowsFormsApp1
             // 
             // txtMensei
             // 
+            this.txtMensei.BackColor = System.Drawing.Color.LightCoral;
             this.txtMensei.Location = new System.Drawing.Point(102, 91);
             this.txtMensei.Name = "txtMensei";
             this.txtMensei.Size = new System.Drawing.Size(100, 22);
@@ -821,6 +875,7 @@ namespace WindowsFormsApp1
             // 
             // txtUrunCode
             // 
+            this.txtUrunCode.BackColor = System.Drawing.Color.LightCoral;
             this.txtUrunCode.Location = new System.Drawing.Point(102, 58);
             this.txtUrunCode.Name = "txtUrunCode";
             this.txtUrunCode.Size = new System.Drawing.Size(100, 22);
@@ -828,6 +883,7 @@ namespace WindowsFormsApp1
             // 
             // tabPage2
             // 
+            this.tabPage2.BackColor = System.Drawing.Color.LightCoral;
             this.tabPage2.Controls.Add(this.lblInfo2);
             this.tabPage2.Controls.Add(this.groupBox4);
             this.tabPage2.Controls.Add(this.groupBox3);
@@ -836,16 +892,15 @@ namespace WindowsFormsApp1
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1575, 627);
+            this.tabPage2.Size = new System.Drawing.Size(1510, 639);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Financial Transactions";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabPage2.Text = "Finansal İşlemler";
             // 
             // lblInfo2
             // 
             this.lblInfo2.AutoSize = true;
             this.lblInfo2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblInfo2.Location = new System.Drawing.Point(29, 13);
+            this.lblInfo2.Location = new System.Drawing.Point(30, 16);
             this.lblInfo2.Name = "lblInfo2";
             this.lblInfo2.Size = new System.Drawing.Size(0, 25);
             this.lblInfo2.TabIndex = 3;
@@ -882,6 +937,7 @@ namespace WindowsFormsApp1
             // 
             // txtSaleAmount
             // 
+            this.txtSaleAmount.BackColor = System.Drawing.Color.LightCoral;
             this.txtSaleAmount.Location = new System.Drawing.Point(375, 118);
             this.txtSaleAmount.Name = "txtSaleAmount";
             this.txtSaleAmount.Size = new System.Drawing.Size(100, 22);
@@ -898,6 +954,7 @@ namespace WindowsFormsApp1
             // 
             // txtUrunCesidi
             // 
+            this.txtUrunCesidi.BackColor = System.Drawing.Color.LightCoral;
             this.txtUrunCesidi.Location = new System.Drawing.Point(375, 75);
             this.txtUrunCesidi.Name = "txtUrunCesidi";
             this.txtUrunCesidi.Size = new System.Drawing.Size(100, 22);
@@ -905,6 +962,7 @@ namespace WindowsFormsApp1
             // 
             // txtReturnAmount
             // 
+            this.txtReturnAmount.BackColor = System.Drawing.Color.LightCoral;
             this.txtReturnAmount.Location = new System.Drawing.Point(149, 120);
             this.txtReturnAmount.Name = "txtReturnAmount";
             this.txtReturnAmount.Size = new System.Drawing.Size(100, 22);
@@ -912,6 +970,7 @@ namespace WindowsFormsApp1
             // 
             // txtTedarikciSayisi
             // 
+            this.txtTedarikciSayisi.BackColor = System.Drawing.Color.LightCoral;
             this.txtTedarikciSayisi.Location = new System.Drawing.Point(149, 166);
             this.txtTedarikciSayisi.Name = "txtTedarikciSayisi";
             this.txtTedarikciSayisi.Size = new System.Drawing.Size(100, 22);
@@ -919,6 +978,7 @@ namespace WindowsFormsApp1
             // 
             // txtKarZarar
             // 
+            this.txtKarZarar.BackColor = System.Drawing.Color.LightCoral;
             this.txtKarZarar.Location = new System.Drawing.Point(149, 73);
             this.txtKarZarar.Name = "txtKarZarar";
             this.txtKarZarar.Size = new System.Drawing.Size(100, 22);
@@ -1011,6 +1071,7 @@ namespace WindowsFormsApp1
             // 
             // txtSatilanUrunLimiti
             // 
+            this.txtSatilanUrunLimiti.BackColor = System.Drawing.Color.LightCoral;
             this.txtSatilanUrunLimiti.Location = new System.Drawing.Point(131, 132);
             this.txtSatilanUrunLimiti.Name = "txtSatilanUrunLimiti";
             this.txtSatilanUrunLimiti.Size = new System.Drawing.Size(138, 22);
@@ -1036,16 +1097,18 @@ namespace WindowsFormsApp1
             // 
             // btnBilgileriGetir
             // 
+            this.btnBilgileriGetir.BackColor = System.Drawing.Color.LightGreen;
             this.btnBilgileriGetir.Location = new System.Drawing.Point(370, 200);
             this.btnBilgileriGetir.Name = "btnBilgileriGetir";
             this.btnBilgileriGetir.Size = new System.Drawing.Size(126, 35);
             this.btnBilgileriGetir.TabIndex = 5;
             this.btnBilgileriGetir.Text = "Bilgileri Getir";
-            this.btnBilgileriGetir.UseVisualStyleBackColor = true;
+            this.btnBilgileriGetir.UseVisualStyleBackColor = false;
             this.btnBilgileriGetir.Click += new System.EventHandler(this.btnBilgileriGetir_Click);
             // 
             // txtEndYear
             // 
+            this.txtEndYear.BackColor = System.Drawing.Color.LightCoral;
             this.txtEndYear.Location = new System.Drawing.Point(131, 73);
             this.txtEndYear.Name = "txtEndYear";
             this.txtEndYear.Size = new System.Drawing.Size(138, 22);
@@ -1053,6 +1116,7 @@ namespace WindowsFormsApp1
             // 
             // txtStartYear
             // 
+            this.txtStartYear.BackColor = System.Drawing.Color.LightCoral;
             this.txtStartYear.Location = new System.Drawing.Point(131, 40);
             this.txtStartYear.Name = "txtStartYear";
             this.txtStartYear.Size = new System.Drawing.Size(138, 22);
@@ -1081,6 +1145,7 @@ namespace WindowsFormsApp1
             // dataGridView2
             // 
             this.dataGridView2.AutoGenerateColumns = false;
+            this.dataGridView2.BackgroundColor = System.Drawing.Color.LightCoral;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.productCodeDataGridViewTextBoxColumn1,
@@ -1092,6 +1157,7 @@ namespace WindowsFormsApp1
             this.dataGridViewTextBoxColumn4,
             this.dataGridViewTextBoxColumn5});
             this.dataGridView2.DataSource = this.saleDetailDtoBindingSource1;
+            this.dataGridView2.GridColor = System.Drawing.Color.Coral;
             this.dataGridView2.Location = new System.Drawing.Point(16, 319);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.RowHeadersWidth = 51;
@@ -1169,28 +1235,312 @@ namespace WindowsFormsApp1
             // 
             // tabPage3
             // 
+            this.tabPage3.BackColor = System.Drawing.Color.LightCoral;
+            this.tabPage3.Controls.Add(this.groupBox7);
             this.tabPage3.Controls.Add(this.lblInfo3);
             this.tabPage3.Controls.Add(this.groupBox6);
             this.tabPage3.Controls.Add(this.groupBox5);
             this.tabPage3.Location = new System.Drawing.Point(4, 25);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1575, 627);
+            this.tabPage3.Size = new System.Drawing.Size(1510, 639);
             this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Product Sale/Return Transactions";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.tabPage3.Text = "Ürün Satış/İade İşlemleri";
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.BackColor = System.Drawing.Color.Silver;
+            this.groupBox7.Controls.Add(this.label47);
+            this.groupBox7.Controls.Add(this.label46);
+            this.groupBox7.Controls.Add(this.label45);
+            this.groupBox7.Controls.Add(this.rxtAciklamaFatura);
+            this.groupBox7.Controls.Add(this.label44);
+            this.groupBox7.Controls.Add(this.txtUrunKoduFatura);
+            this.groupBox7.Controls.Add(this.label43);
+            this.groupBox7.Controls.Add(this.label42);
+            this.groupBox7.Controls.Add(this.label41);
+            this.groupBox7.Controls.Add(this.txtTelNoFatura);
+            this.groupBox7.Controls.Add(this.label40);
+            this.groupBox7.Controls.Add(this.txtSoyadFatura);
+            this.groupBox7.Controls.Add(this.txtAdFatura);
+            this.groupBox7.Controls.Add(this.label39);
+            this.groupBox7.Controls.Add(this.label38);
+            this.groupBox7.Controls.Add(this.txtIadeTutariFatura);
+            this.groupBox7.Controls.Add(this.txtSatisFiyatiFatura);
+            this.groupBox7.Controls.Add(this.lblIadeTutariFatura);
+            this.groupBox7.Controls.Add(this.label37);
+            this.groupBox7.Controls.Add(this.txtIadeTarihiFatura);
+            this.groupBox7.Controls.Add(this.txtSatisTarihiFatura);
+            this.groupBox7.Controls.Add(this.lblIadeTarihiFatura);
+            this.groupBox7.Controls.Add(this.label36);
+            this.groupBox7.Controls.Add(this.txtSatisKoduFatura);
+            this.groupBox7.Controls.Add(this.txtIadeKoduFatura);
+            this.groupBox7.Controls.Add(this.lblIadeKoduFatura);
+            this.groupBox7.Controls.Add(this.label35);
+            this.groupBox7.ForeColor = System.Drawing.Color.Black;
+            this.groupBox7.Location = new System.Drawing.Point(777, 48);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(537, 573);
+            this.groupBox7.TabIndex = 5;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Fatura";
+            // 
+            // label47
+            // 
+            this.label47.AutoSize = true;
+            this.label47.Location = new System.Drawing.Point(90, 546);
+            this.label47.Name = "label47";
+            this.label47.Size = new System.Drawing.Size(364, 17);
+            this.label47.TabIndex = 27;
+            this.label47.Text = "BİZİ TERCİH ETTİĞİNİZ İÇİN TEŞEKKÜR EDERİZ.";
+            // 
+            // label46
+            // 
+            this.label46.AutoSize = true;
+            this.label46.Location = new System.Drawing.Point(36, 442);
+            this.label46.Name = "label46";
+            this.label46.Size = new System.Drawing.Size(141, 17);
+            this.label46.TabIndex = 26;
+            this.label46.Text = "ÖDEME BİLGİLERİ";
+            // 
+            // label45
+            // 
+            this.label45.AutoSize = true;
+            this.label45.Location = new System.Drawing.Point(35, 326);
+            this.label45.Name = "label45";
+            this.label45.Size = new System.Drawing.Size(131, 17);
+            this.label45.TabIndex = 25;
+            this.label45.Text = "İŞLEM BİLGİLERİ";
+            // 
+            // rxtAciklamaFatura
+            // 
+            this.rxtAciklamaFatura.BackColor = System.Drawing.Color.Silver;
+            this.rxtAciklamaFatura.Enabled = false;
+            this.rxtAciklamaFatura.Location = new System.Drawing.Point(203, 238);
+            this.rxtAciklamaFatura.Name = "rxtAciklamaFatura";
+            this.rxtAciklamaFatura.Size = new System.Drawing.Size(298, 66);
+            this.rxtAciklamaFatura.TabIndex = 24;
+            this.rxtAciklamaFatura.Text = "";
+            // 
+            // label44
+            // 
+            this.label44.AutoSize = true;
+            this.label44.Location = new System.Drawing.Point(36, 241);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(117, 17);
+            this.label44.TabIndex = 23;
+            this.label44.Text = "Ürün Açıklama:";
+            // 
+            // txtUrunKoduFatura
+            // 
+            this.txtUrunKoduFatura.BackColor = System.Drawing.Color.Silver;
+            this.txtUrunKoduFatura.Enabled = false;
+            this.txtUrunKoduFatura.Location = new System.Drawing.Point(203, 201);
+            this.txtUrunKoduFatura.Name = "txtUrunKoduFatura";
+            this.txtUrunKoduFatura.Size = new System.Drawing.Size(100, 22);
+            this.txtUrunKoduFatura.TabIndex = 22;
+            // 
+            // label43
+            // 
+            this.label43.AutoSize = true;
+            this.label43.Location = new System.Drawing.Point(35, 204);
+            this.label43.Name = "label43";
+            this.label43.Size = new System.Drawing.Size(90, 17);
+            this.label43.TabIndex = 21;
+            this.label43.Text = "Ürün Kodu:";
+            // 
+            // label42
+            // 
+            this.label42.AutoSize = true;
+            this.label42.Location = new System.Drawing.Point(35, 172);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(130, 17);
+            this.label42.TabIndex = 20;
+            this.label42.Text = "ÜRÜN BİLGİLERİ";
+            // 
+            // label41
+            // 
+            this.label41.AutoSize = true;
+            this.label41.Location = new System.Drawing.Point(35, 28);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(154, 17);
+            this.label41.TabIndex = 19;
+            this.label41.Text = "MÜŞTERİ BİLGİLERİ";
+            // 
+            // txtTelNoFatura
+            // 
+            this.txtTelNoFatura.BackColor = System.Drawing.Color.Silver;
+            this.txtTelNoFatura.Enabled = false;
+            this.txtTelNoFatura.Location = new System.Drawing.Point(203, 126);
+            this.txtTelNoFatura.Name = "txtTelNoFatura";
+            this.txtTelNoFatura.Size = new System.Drawing.Size(100, 22);
+            this.txtTelNoFatura.TabIndex = 18;
+            // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.Location = new System.Drawing.Point(35, 131);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(93, 17);
+            this.label40.TabIndex = 17;
+            this.label40.Text = "Telefon No:";
+            // 
+            // txtSoyadFatura
+            // 
+            this.txtSoyadFatura.BackColor = System.Drawing.Color.Silver;
+            this.txtSoyadFatura.Enabled = false;
+            this.txtSoyadFatura.Location = new System.Drawing.Point(203, 89);
+            this.txtSoyadFatura.Name = "txtSoyadFatura";
+            this.txtSoyadFatura.Size = new System.Drawing.Size(100, 22);
+            this.txtSoyadFatura.TabIndex = 15;
+            // 
+            // txtAdFatura
+            // 
+            this.txtAdFatura.BackColor = System.Drawing.Color.Silver;
+            this.txtAdFatura.Enabled = false;
+            this.txtAdFatura.Location = new System.Drawing.Point(203, 53);
+            this.txtAdFatura.Name = "txtAdFatura";
+            this.txtAdFatura.Size = new System.Drawing.Size(100, 22);
+            this.txtAdFatura.TabIndex = 14;
+            // 
+            // label39
+            // 
+            this.label39.AutoSize = true;
+            this.label39.Location = new System.Drawing.Point(35, 94);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(58, 17);
+            this.label39.TabIndex = 13;
+            this.label39.Text = "Soyad:";
+            // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.Location = new System.Drawing.Point(36, 58);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(32, 17);
+            this.label38.TabIndex = 12;
+            this.label38.Text = "Ad:";
+            // 
+            // txtIadeTutariFatura
+            // 
+            this.txtIadeTutariFatura.BackColor = System.Drawing.Color.Silver;
+            this.txtIadeTutariFatura.Enabled = false;
+            this.txtIadeTutariFatura.Location = new System.Drawing.Point(181, 501);
+            this.txtIadeTutariFatura.Name = "txtIadeTutariFatura";
+            this.txtIadeTutariFatura.Size = new System.Drawing.Size(100, 22);
+            this.txtIadeTutariFatura.TabIndex = 11;
+            // 
+            // txtSatisFiyatiFatura
+            // 
+            this.txtSatisFiyatiFatura.BackColor = System.Drawing.Color.Silver;
+            this.txtSatisFiyatiFatura.Enabled = false;
+            this.txtSatisFiyatiFatura.Location = new System.Drawing.Point(181, 472);
+            this.txtSatisFiyatiFatura.Name = "txtSatisFiyatiFatura";
+            this.txtSatisFiyatiFatura.Size = new System.Drawing.Size(100, 22);
+            this.txtSatisFiyatiFatura.TabIndex = 10;
+            // 
+            // lblIadeTutariFatura
+            // 
+            this.lblIadeTutariFatura.AutoSize = true;
+            this.lblIadeTutariFatura.Location = new System.Drawing.Point(36, 507);
+            this.lblIadeTutariFatura.Name = "lblIadeTutariFatura";
+            this.lblIadeTutariFatura.Size = new System.Drawing.Size(138, 17);
+            this.lblIadeTutariFatura.TabIndex = 9;
+            this.lblIadeTutariFatura.Text = "İade Edilen Tutar:";
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Location = new System.Drawing.Point(36, 475);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(48, 17);
+            this.label37.TabIndex = 8;
+            this.label37.Text = "Fiyat:";
+            // 
+            // txtIadeTarihiFatura
+            // 
+            this.txtIadeTarihiFatura.BackColor = System.Drawing.Color.Silver;
+            this.txtIadeTarihiFatura.Enabled = false;
+            this.txtIadeTarihiFatura.Location = new System.Drawing.Point(404, 395);
+            this.txtIadeTarihiFatura.Name = "txtIadeTarihiFatura";
+            this.txtIadeTarihiFatura.Size = new System.Drawing.Size(100, 22);
+            this.txtIadeTarihiFatura.TabIndex = 7;
+            // 
+            // txtSatisTarihiFatura
+            // 
+            this.txtSatisTarihiFatura.BackColor = System.Drawing.Color.Silver;
+            this.txtSatisTarihiFatura.Enabled = false;
+            this.txtSatisTarihiFatura.Location = new System.Drawing.Point(404, 355);
+            this.txtSatisTarihiFatura.Name = "txtSatisTarihiFatura";
+            this.txtSatisTarihiFatura.Size = new System.Drawing.Size(100, 22);
+            this.txtSatisTarihiFatura.TabIndex = 6;
+            // 
+            // lblIadeTarihiFatura
+            // 
+            this.lblIadeTarihiFatura.AutoSize = true;
+            this.lblIadeTarihiFatura.Location = new System.Drawing.Point(285, 398);
+            this.lblIadeTarihiFatura.Name = "lblIadeTarihiFatura";
+            this.lblIadeTarihiFatura.Size = new System.Drawing.Size(91, 17);
+            this.lblIadeTarihiFatura.TabIndex = 5;
+            this.lblIadeTarihiFatura.Text = "İade Tarihi:";
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Location = new System.Drawing.Point(285, 358);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(96, 17);
+            this.label36.TabIndex = 4;
+            this.label36.Text = "Satış Tarihi:";
+            // 
+            // txtSatisKoduFatura
+            // 
+            this.txtSatisKoduFatura.BackColor = System.Drawing.Color.Silver;
+            this.txtSatisKoduFatura.Enabled = false;
+            this.txtSatisKoduFatura.Location = new System.Drawing.Point(143, 355);
+            this.txtSatisKoduFatura.Name = "txtSatisKoduFatura";
+            this.txtSatisKoduFatura.Size = new System.Drawing.Size(100, 22);
+            this.txtSatisKoduFatura.TabIndex = 3;
+            // 
+            // txtIadeKoduFatura
+            // 
+            this.txtIadeKoduFatura.BackColor = System.Drawing.Color.Silver;
+            this.txtIadeKoduFatura.Enabled = false;
+            this.txtIadeKoduFatura.Location = new System.Drawing.Point(143, 395);
+            this.txtIadeKoduFatura.Name = "txtIadeKoduFatura";
+            this.txtIadeKoduFatura.Size = new System.Drawing.Size(100, 22);
+            this.txtIadeKoduFatura.TabIndex = 2;
+            // 
+            // lblIadeKoduFatura
+            // 
+            this.lblIadeKoduFatura.AutoSize = true;
+            this.lblIadeKoduFatura.Location = new System.Drawing.Point(37, 398);
+            this.lblIadeKoduFatura.Name = "lblIadeKoduFatura";
+            this.lblIadeKoduFatura.Size = new System.Drawing.Size(86, 17);
+            this.lblIadeKoduFatura.TabIndex = 1;
+            this.lblIadeKoduFatura.Text = "İade Kodu:";
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Location = new System.Drawing.Point(36, 358);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(91, 17);
+            this.label35.TabIndex = 0;
+            this.label35.Text = "Satış Kodu:";
             // 
             // lblInfo3
             // 
             this.lblInfo3.AutoSize = true;
             this.lblInfo3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblInfo3.Location = new System.Drawing.Point(25, 20);
+            this.lblInfo3.Location = new System.Drawing.Point(31, 14);
             this.lblInfo3.Name = "lblInfo3";
             this.lblInfo3.Size = new System.Drawing.Size(0, 25);
             this.lblInfo3.TabIndex = 4;
             // 
             // groupBox6
             // 
+            this.groupBox6.BackColor = System.Drawing.Color.LightCoral;
             this.groupBox6.Controls.Add(this.label34);
             this.groupBox6.Controls.Add(this.txtTelNoIade);
             this.groupBox6.Controls.Add(this.txtSatisTarihiIade);
@@ -1221,6 +1571,7 @@ namespace WindowsFormsApp1
             // 
             // txtTelNoIade
             // 
+            this.txtTelNoIade.BackColor = System.Drawing.Color.LightCoral;
             this.txtTelNoIade.Enabled = false;
             this.txtTelNoIade.Location = new System.Drawing.Point(125, 157);
             this.txtTelNoIade.Name = "txtTelNoIade";
@@ -1229,6 +1580,7 @@ namespace WindowsFormsApp1
             // 
             // txtSatisTarihiIade
             // 
+            this.txtSatisTarihiIade.BackColor = System.Drawing.Color.LightCoral;
             this.txtSatisTarihiIade.Enabled = false;
             this.txtSatisTarihiIade.Location = new System.Drawing.Point(125, 118);
             this.txtSatisTarihiIade.Name = "txtSatisTarihiIade";
@@ -1237,6 +1589,7 @@ namespace WindowsFormsApp1
             // 
             // txtUrunKoduIade
             // 
+            this.txtUrunKoduIade.BackColor = System.Drawing.Color.LightCoral;
             this.txtUrunKoduIade.Enabled = false;
             this.txtUrunKoduIade.Location = new System.Drawing.Point(125, 77);
             this.txtUrunKoduIade.Name = "txtUrunKoduIade";
@@ -1272,26 +1625,29 @@ namespace WindowsFormsApp1
             // 
             // btnSatisGetir
             // 
+            this.btnSatisGetir.BackColor = System.Drawing.Color.LightGreen;
             this.btnSatisGetir.Location = new System.Drawing.Point(272, 35);
             this.btnSatisGetir.Name = "btnSatisGetir";
             this.btnSatisGetir.Size = new System.Drawing.Size(104, 29);
             this.btnSatisGetir.TabIndex = 3;
             this.btnSatisGetir.Text = "Satış Getir";
-            this.btnSatisGetir.UseVisualStyleBackColor = true;
+            this.btnSatisGetir.UseVisualStyleBackColor = false;
             this.btnSatisGetir.Click += new System.EventHandler(this.btnSatisGetir_Click);
             // 
             // btnIadeAl
             // 
+            this.btnIadeAl.BackColor = System.Drawing.Color.OrangeRed;
             this.btnIadeAl.Location = new System.Drawing.Point(608, 148);
             this.btnIadeAl.Name = "btnIadeAl";
             this.btnIadeAl.Size = new System.Drawing.Size(123, 31);
             this.btnIadeAl.TabIndex = 2;
             this.btnIadeAl.Text = "İade Al";
-            this.btnIadeAl.UseVisualStyleBackColor = true;
+            this.btnIadeAl.UseVisualStyleBackColor = false;
             this.btnIadeAl.Click += new System.EventHandler(this.btnIadeAl_Click);
             // 
             // txtSatisIDIade
             // 
+            this.txtSatisIDIade.BackColor = System.Drawing.Color.LightCoral;
             this.txtSatisIDIade.Location = new System.Drawing.Point(125, 37);
             this.txtSatisIDIade.Name = "txtSatisIDIade";
             this.txtSatisIDIade.Size = new System.Drawing.Size(118, 22);
@@ -1308,6 +1664,7 @@ namespace WindowsFormsApp1
             // 
             // groupBox5
             // 
+            this.groupBox5.BackColor = System.Drawing.Color.LightCoral;
             this.groupBox5.Controls.Add(this.label23);
             this.groupBox5.Controls.Add(this.txtFiyatSatis);
             this.groupBox5.Controls.Add(this.rxtAciklamaSatis);
@@ -1344,6 +1701,7 @@ namespace WindowsFormsApp1
             // 
             // txtFiyatSatis
             // 
+            this.txtFiyatSatis.BackColor = System.Drawing.Color.LightCoral;
             this.txtFiyatSatis.Enabled = false;
             this.txtFiyatSatis.Location = new System.Drawing.Point(143, 75);
             this.txtFiyatSatis.Name = "txtFiyatSatis";
@@ -1352,6 +1710,7 @@ namespace WindowsFormsApp1
             // 
             // rxtAciklamaSatis
             // 
+            this.rxtAciklamaSatis.BackColor = System.Drawing.Color.LightCoral;
             this.rxtAciklamaSatis.Enabled = false;
             this.rxtAciklamaSatis.Location = new System.Drawing.Point(143, 113);
             this.rxtAciklamaSatis.Name = "rxtAciklamaSatis";
@@ -1361,16 +1720,18 @@ namespace WindowsFormsApp1
             // 
             // btnSatisYap
             // 
+            this.btnSatisYap.BackColor = System.Drawing.Color.OrangeRed;
             this.btnSatisYap.Location = new System.Drawing.Point(608, 297);
             this.btnSatisYap.Name = "btnSatisYap";
             this.btnSatisYap.Size = new System.Drawing.Size(123, 31);
             this.btnSatisYap.TabIndex = 16;
             this.btnSatisYap.Text = "Satış Yap";
-            this.btnSatisYap.UseVisualStyleBackColor = true;
+            this.btnSatisYap.UseVisualStyleBackColor = false;
             this.btnSatisYap.Click += new System.EventHandler(this.btnSatisYap_Click);
             // 
             // txtMusteriSoyadSatis
             // 
+            this.txtMusteriSoyadSatis.BackColor = System.Drawing.Color.LightCoral;
             this.txtMusteriSoyadSatis.Location = new System.Drawing.Point(143, 320);
             this.txtMusteriSoyadSatis.Name = "txtMusteriSoyadSatis";
             this.txtMusteriSoyadSatis.Size = new System.Drawing.Size(100, 22);
@@ -1378,6 +1739,7 @@ namespace WindowsFormsApp1
             // 
             // txtMusteriAdSatis
             // 
+            this.txtMusteriAdSatis.BackColor = System.Drawing.Color.LightCoral;
             this.txtMusteriAdSatis.Location = new System.Drawing.Point(143, 279);
             this.txtMusteriAdSatis.Name = "txtMusteriAdSatis";
             this.txtMusteriAdSatis.Size = new System.Drawing.Size(100, 22);
@@ -1385,6 +1747,7 @@ namespace WindowsFormsApp1
             // 
             // txtTelNoSatis
             // 
+            this.txtTelNoSatis.BackColor = System.Drawing.Color.LightCoral;
             this.txtTelNoSatis.Location = new System.Drawing.Point(144, 239);
             this.txtTelNoSatis.Name = "txtTelNoSatis";
             this.txtTelNoSatis.Size = new System.Drawing.Size(100, 22);
@@ -1392,6 +1755,7 @@ namespace WindowsFormsApp1
             // 
             // txtUrunKoduSatis
             // 
+            this.txtUrunKoduSatis.BackColor = System.Drawing.Color.LightCoral;
             this.txtUrunKoduSatis.Location = new System.Drawing.Point(143, 35);
             this.txtUrunKoduSatis.Name = "txtUrunKoduSatis";
             this.txtUrunKoduSatis.Size = new System.Drawing.Size(100, 22);
@@ -1399,22 +1763,24 @@ namespace WindowsFormsApp1
             // 
             // btnMusteriEkle
             // 
+            this.btnMusteriEkle.BackColor = System.Drawing.Color.LightGreen;
             this.btnMusteriEkle.Location = new System.Drawing.Point(273, 297);
             this.btnMusteriEkle.Name = "btnMusteriEkle";
             this.btnMusteriEkle.Size = new System.Drawing.Size(123, 31);
             this.btnMusteriEkle.TabIndex = 9;
             this.btnMusteriEkle.Text = "Müşteri Ekle";
-            this.btnMusteriEkle.UseVisualStyleBackColor = true;
+            this.btnMusteriEkle.UseVisualStyleBackColor = false;
             this.btnMusteriEkle.Click += new System.EventHandler(this.btnMusteriEkle_Click);
             // 
             // btnMusteriGetir
             // 
+            this.btnMusteriGetir.BackColor = System.Drawing.Color.LightGreen;
             this.btnMusteriGetir.Location = new System.Drawing.Point(273, 262);
             this.btnMusteriGetir.Name = "btnMusteriGetir";
             this.btnMusteriGetir.Size = new System.Drawing.Size(123, 29);
             this.btnMusteriGetir.TabIndex = 8;
             this.btnMusteriGetir.Text = "Müşteri Getir";
-            this.btnMusteriGetir.UseVisualStyleBackColor = true;
+            this.btnMusteriGetir.UseVisualStyleBackColor = false;
             this.btnMusteriGetir.Click += new System.EventHandler(this.btnMusteriGetir_Click);
             // 
             // label29
@@ -1455,12 +1821,13 @@ namespace WindowsFormsApp1
             // 
             // btnUrunGetir
             // 
+            this.btnUrunGetir.BackColor = System.Drawing.Color.LightGreen;
             this.btnUrunGetir.Location = new System.Drawing.Point(272, 35);
             this.btnUrunGetir.Name = "btnUrunGetir";
             this.btnUrunGetir.Size = new System.Drawing.Size(123, 31);
             this.btnUrunGetir.TabIndex = 2;
             this.btnUrunGetir.Text = "Ürün Getir";
-            this.btnUrunGetir.UseVisualStyleBackColor = true;
+            this.btnUrunGetir.UseVisualStyleBackColor = false;
             this.btnUrunGetir.Click += new System.EventHandler(this.btnUrunGetir_Click);
             // 
             // label25
@@ -1501,7 +1868,7 @@ namespace WindowsFormsApp1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1667, 712);
+            this.ClientSize = new System.Drawing.Size(1541, 694);
             this.Controls.Add(this.tabControl1);
             this.Name = "Form1";
             this.Text = "Computer Item Stock";
@@ -1513,8 +1880,8 @@ namespace WindowsFormsApp1
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.grpUrunList.ResumeLayout(false);
+            this.grpUrunList.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.supplierBindingSource)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -1528,6 +1895,8 @@ namespace WindowsFormsApp1
             ((System.ComponentModel.ISupportInitialize)(this.saleDetailDtoBindingSource1)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
             this.groupBox5.ResumeLayout(false);
@@ -1569,7 +1938,7 @@ namespace WindowsFormsApp1
         private System.Windows.Forms.TextBox txtUrunCode;
         private System.Windows.Forms.Label lblInfo;
         private System.Windows.Forms.Button btnUrunEkle;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox grpUrunList;
         private System.Windows.Forms.ComboBox cmbTedarikcilerListe;
         private System.Windows.Forms.TextBox txtStokSayisiListe;
         private System.Windows.Forms.TextBox txtBrandListe;
@@ -1680,6 +2049,34 @@ namespace WindowsFormsApp1
         private System.Windows.Forms.RichTextBox txtAciklamaListe;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.TextBox txtTelNoFatura;
+        private System.Windows.Forms.Label label40;
+        private System.Windows.Forms.TextBox txtSoyadFatura;
+        private System.Windows.Forms.TextBox txtAdFatura;
+        private System.Windows.Forms.Label label39;
+        private System.Windows.Forms.Label label38;
+        private System.Windows.Forms.TextBox txtIadeTutariFatura;
+        private System.Windows.Forms.TextBox txtSatisFiyatiFatura;
+        private System.Windows.Forms.Label lblIadeTutariFatura;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.TextBox txtIadeTarihiFatura;
+        private System.Windows.Forms.TextBox txtSatisTarihiFatura;
+        private System.Windows.Forms.Label lblIadeTarihiFatura;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.TextBox txtSatisKoduFatura;
+        private System.Windows.Forms.TextBox txtIadeKoduFatura;
+        private System.Windows.Forms.Label lblIadeKoduFatura;
+        private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.Label label43;
+        private System.Windows.Forms.Label label42;
+        private System.Windows.Forms.Label label41;
+        private System.Windows.Forms.Label label47;
+        private System.Windows.Forms.Label label46;
+        private System.Windows.Forms.Label label45;
+        private System.Windows.Forms.RichTextBox rxtAciklamaFatura;
+        private System.Windows.Forms.Label label44;
+        private System.Windows.Forms.TextBox txtUrunKoduFatura;
     }
 }
 

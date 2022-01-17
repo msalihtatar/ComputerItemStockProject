@@ -66,32 +66,5 @@ namespace DataAccess.Concrete
                 throw e;
             }
         }
-
-        public List<SaleReturnDetailDto> getSaleReturnDetails()
-        {
-            try
-            {
-                string sql = @"Select s.SaleID,
-		                              c.FirstName,
-		                              c.LastName,
-		                              c.PhoneNumber,
-		                              p.ProductCode,
-		                              p.Price,
-		                              s.SaleDate,
-		                              r.ReturnDate
-                              From Customers c 
-                              Inner Join Sales s on s.CustomerID = c.CustomerID
-                              Left Join Returns r on r.SaleID = s.SaleID
-                              Inner Join Products p on p.ProductID = s.ProductID";
-
-                var result = _dbConnection.Query<SaleReturnDetailDto>(sql).ToList();
-
-                return result;
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-        }
     }
 }

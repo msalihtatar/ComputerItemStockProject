@@ -23,7 +23,7 @@ namespace WindowsFormsApp1
         ISaleService _saleService;
         IReturnService _returnService;
         public Form1(ICustomerService customerService, IProductService productService, ISupplierService supplierService,
-            IStockService stockService,ISaleService saleService,IReturnService returnService)
+            IStockService stockService, ISaleService saleService, IReturnService returnService)
         {
             _customerService = customerService;
             _productService = productService;
@@ -35,9 +35,7 @@ namespace WindowsFormsApp1
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            var suppliers = _supplierService.getAll();
-            cmbTedarikciler.DataSource = suppliers.Data;
-            cmbTedarikcilerListe.DataSource = suppliers.Data;
+            fillCmbTedarikciler();
 
             if (dataGridView1 != null && dataGridView1.RowCount > 0)
             {
@@ -45,23 +43,41 @@ namespace WindowsFormsApp1
             }
         }
 
+        private void fillCmbTedarikciler()
+        {
+            var suppliers = _supplierService.getAll();
+            cmbTedarikciler.DataSource = suppliers.Data;
+            cmbTedarikcilerListe.DataSource = suppliers.Data;
+        }
+
         private void btnList_Click(object sender, EventArgs e)
         {
-            int supplierid = -1;
-            if (cmbTedarikcilerListe.SelectedValue != null && cmbTedarikcilerListe.SelectedValue.ToString() != "-1")
+            try
             {
-                supplierid = int.Parse(cmbTedarikcilerListe.SelectedValue.ToString()); 
-            }
+                int supplierid = -1;
+                supplierid = int.Parse(cmbTedarikcilerListe.SelectedValue.ToString());
 
-            var sonuc = _productService.getProductDetails(txtUrunAdiListe.Text,txtUrunKoduListe.Text,supplierid);
-            dataGridView1.DataSource = sonuc.Data;            
+                if (supplierid < 0)
+                {
+                    lblInfo.Text = "Tedarikçi getirilirken bir hata oluştu.";
+                    return;
+                }
+
+                var result = fillDataGridView1(txtUrunAdiListe.Text, txtUrunKoduListe.Text, supplierid);
+                
+                lblInfo.Text = result;
+            }
+            catch (Exception ex)
+            {
+                lblInfo.Text = "Hata mesajı: " + ex.Message;
+            }
         }
 
         private void btnUrunEkle_Click(object sender, EventArgs e)
         {
             try
             {
-                if (string.IsNullOrEmpty(txtUrunAdi.Text) || string.IsNullOrEmpty(txtPrice.Text) || string.IsNullOrEmpty(txtStokSayisi.Text) 
+                if (string.IsNullOrEmpty(txtUrunAdi.Text) || string.IsNullOrEmpty(txtPrice.Text) || string.IsNullOrEmpty(txtStokSayisi.Text)
                     || string.IsNullOrEmpty(txtMarka.Text) || string.IsNullOrEmpty(txtMensei.Text) || string.IsNullOrEmpty(txtUrunCode.Text)
                     || string.IsNullOrEmpty(txtAlisFiyati.Text))
                 {
@@ -69,22 +85,16 @@ namespace WindowsFormsApp1
                     return;
                 }
 
-                if (cmbTedarikciler.SelectedItem == null || cmbTedarikciler.SelectedValue.ToString().Equals("-1"))
-                {
-                    lblInfo.Text = "Lütfen Tedarikçi seçiniz.";
-                    return;
-                }
-
                 float fiyat = 0;
                 float alisFiyati = 0;
-                try
+                int stockAmount = -1;
+                float.TryParse(txtPrice.Text.ToString().Replace(".", ","), out fiyat);
+                float.TryParse(txtAlisFiyati.Text.ToString().Replace(".", ","), out alisFiyati);
+                int.TryParse(txtStokSayisi.Text, out stockAmount);
+
+                if (fiyat <= 0 || alisFiyati <= 0 || stockAmount < 0)
                 {
-                    fiyat = float.Parse(txtPrice.Text.ToString().Replace(".",","));
-                    alisFiyati = float.Parse(txtAlisFiyati.Text.ToString().Replace(".", ","));
-                }
-                catch (Exception)
-                {
-                    lblInfo.Text = "Lütfen ürün fiyatlarını doğru giriniz.";
+                    lblInfo.Text = "Lütfen ürün fiyatlarını ve stok miktarını doğru giriniz.";
                     return;
                 }
 
@@ -100,45 +110,32 @@ namespace WindowsFormsApp1
                     PurchasePrice = alisFiyati
                 };
 
-                var result = _productService.add(product);
+                var result = _productService.addProductToStock(product, stockAmount);
 
-                if (result.Success)
-                {
-                    var hasProduct = _productService.getProductByCode(product.ProductCode);
+                fillDataGridView1(product.ProductName, product.ProductCode, product.SupplierID);
 
-                    if (hasProduct.Success)
-                    {
-                        Stock stock = new Stock 
-                        {
-                            ProductID = hasProduct.Data.ProductID,
-                            StockAmount = int.Parse(txtStokSayisi.Text)
-                        };
-
-                        var hasStock = _stockService.add(stock);
-
-                        if (hasStock.Success)
-                        {
-                            lblInfo.Text = "Ürün başarılı bir şekilde stoğa eklendi.";
-                        }
-                        else
-                        {
-                            lblInfo.Text = "Ürün stoğa eklenirken bir sorun oluştu.";
-                        }
-                    }
-                    else
-                    {
-                        lblInfo.Text = "Ürün stoğa eklenirken bir sorun oluştu.";
-                    }
-                }
-                else
-                {
-                    lblInfo.Text = "Ürün stoğa eklenirken bir sorun oluştu.";
-                }
+                lblInfo.Text = result.Message;
             }
             catch (Exception ex)
             {
-                lblInfo.Text = "Ürün eklenirken bir sorun oluştu.";
-                throw ex;
+                lblInfo.Text = "Ürün stoğa eklenirken bir sorun oluştu. Hata mesajı: " + ex.Message;
+            }
+        }
+
+        private string fillDataGridView1(string productName, string productCode, int supplierId)
+        {
+            try
+            {
+                var sonuc = _productService.getProductDetails(productName, productCode, supplierId);
+                if (sonuc.Success)
+                {
+                    dataGridView1.DataSource = sonuc.Data;
+                }
+                return "Ürün bulunamadı.";
+            }
+            catch (Exception ex)
+            {
+                return "Hata Mesajı: " + ex.Message;
             }
         }
 
@@ -153,48 +150,33 @@ namespace WindowsFormsApp1
                         string productId = row.Cells[0].Value.ToString();
                         string productCode = row.Cells[1].Value.ToString();
 
-                        if (!string.IsNullOrEmpty(productId))
+                        if (!string.IsNullOrEmpty(productId) && !string.IsNullOrEmpty(productCode))
                         {
-                            var result = _stockService.delete(int.Parse(productId));
+                            var result = _productService.deleteProductToStock(int.Parse(productId), productCode);
                             if (result.Success)
                             {
-                                var result2 = _productService.delete(productCode);
-
-                                if (result2.Success)
-                                {
-                                    lblInfo.Text = "Ürünler başarıyla silindi.";
-                                }
-                                else
-                                {
-                                    lblInfo.Text = "Ürün silinirken bir hata oluştu.";
-                                    return;
-                                }
-                            }
-                            else
-                            {
-                                lblInfo.Text = "Ürün silinirken bir hata oluştu.";
-                                return;
+                                grpUrunList.Text = "";
+                                lblInfo.Text = result.Message;
                             }
                         }
                         else
                         {
-                            lblInfo.Text = "Ürün silinirken bir hata oluştu.";
+                            lblInfo.Text = "Ürün Kodu getirilirken bir hata oluştu.";
                             return;
                         }
                     }
                 }
                 else
                 {
-                    lblInfo.Text = "Ürün silinirken bir hata oluştu.";
+                    lblInfo.Text = "Seçili ürün getirilirken bir hata oluştu.";
                     return;
                 }
 
-                btnList_Click(sender,e);
+                btnList_Click(sender, e);
             }
             catch (Exception ex)
             {
-                lblInfo.Text = "Ürün silinirken bir hata oluştu.";
-                throw ex;
+                lblInfo.Text = "Hata mesajı: " + ex.Message;
             }
         }
 
@@ -217,17 +199,7 @@ namespace WindowsFormsApp1
                     return;
                 }
 
-                var suppliers = _supplierService.getAll();
-
-                Supplier supplier = new Supplier();
-                if (suppliers.Success)
-                {
-                    supplier = suppliers.Data.Where(x => x.SupplierID.ToString()
-                                                            .Equals(cmbTedarikcilerListe.SelectedValue.ToString()))
-                                                            .FirstOrDefault();
-                }
-                
-                Stock stock = new Stock 
+                Stock stock = new Stock
                 {
                     ProductID = int.Parse(productId),
                     StockAmount = int.Parse(txtStokSayisiListe.Text)
@@ -242,29 +214,19 @@ namespace WindowsFormsApp1
                     Description = txtAciklamaListe.Text,
                     Origin = txtMenseiListe.Text,
                     Price = fiyat,
-                    SupplierID = supplier.SupplierID,
+                    SupplierID = int.Parse(cmbTedarikciler.SelectedValue.ToString()),
                     PurchasePrice = alisFiyati
                 };
 
-                var result = _stockService.update(stock);
-                if (result.Success)
-                {
-                    var result1 = _productService.update(product);
-                    
-                    if (result1.Success)
-                    {
-                        lblInfo.Text = "Ürün güncellendi.";
-                        btnList_Click(sender, e);
-                        return;
-                    }
-                }
+                var result = _productService.updateProductInStock(product, stock);
 
-                lblInfo.Text = "Ürün güncellenirken bir hata oluştu.";
+                fillDataGridView1(product.ProductName, product.ProductCode, product.SupplierID);
+
+                lblInfo.Text = result.Message;
             }
             catch (Exception ex)
             {
-                lblInfo.Text = "Ürün güncellenirken bir hata oluştu.";
-                throw ex;
+                lblInfo.Text = "Hata mesajı: " + ex.Message;
             }
         }
 
@@ -280,7 +242,8 @@ namespace WindowsFormsApp1
                 txtAciklamaListe.Text = this.dataGridView1.CurrentRow.Cells[6].Value.ToString();
                 string tedarikciAdi = this.dataGridView1.CurrentRow.Cells[7].Value.ToString();
                 txtMenseiListe.Text = this.dataGridView1.CurrentRow.Cells[8].Value.ToString();
-                txtStokSayisiListe.Text = this.dataGridView1.CurrentRow.Cells[9].Value.ToString(); 
+                txtStokSayisiListe.Text = this.dataGridView1.CurrentRow.Cells[9].Value.ToString();
+
                 var suppliers = _supplierService.getAll();
 
                 if (suppliers.Success)
@@ -296,11 +259,11 @@ namespace WindowsFormsApp1
                         return;
                     }
                 }
-                lblInfo.Text = "Ürün getirilirken bir hata oluştu.";
+                lblInfo.Text = suppliers.Message;
             }
             catch (Exception ex)
             {
-                throw ex;
+                lblInfo.Text = "Hata mesajı: " + ex.Message;
             }
         }
 
@@ -321,16 +284,12 @@ namespace WindowsFormsApp1
                 if (products.Success)
                 {
                     dataGridView1.DataSource = products.Data;
-                    lblInfo.Text = products.Message;
                 }
-                else
-                {
-                    lblInfo.Text = products.Message;
-                }
+                lblInfo.Text = products.Message;
             }
             catch (Exception ex)
             {
-                throw ex;
+                lblInfo.Text = "Hata mesajı: " + ex.Message;
             }
         }
 
@@ -357,60 +316,20 @@ namespace WindowsFormsApp1
                 DateTime.TryParseExact(txtEndYear.Text, "yyyy", CultureInfo.InvariantCulture,
                                                                 DateTimeStyles.None, out endDate);
 
-                if (startDate >= endDate)
+                if (startDate > endDate)
                 {
-                    lblInfo2.Text = "Başlangıç yılı bitiş yılına eşit veya büyük olamaz.";
+                    lblInfo2.Text = "Başlangıç yılı bitiş yılından büyük olamaz.";
                     return;
                 }
 
-                var result = _saleService.getSaleDetails(startDate,endDate);
+                var result = _saleService.getSaleDetails(startDate, endDate);
 
                 if (result.Success)
                 {
-                    if (result.Data != null && result.Data.Count > 0)
-                    {
-                        int limit = 0;
-                        int.TryParse(txtSatilanUrunLimiti.Text, out limit);
-                        List<SaleDetailDto> details = new List<SaleDetailDto>();
-                        if (chkEnAzMi.Checked)
-                        {
-                            var descOrd = result.Data.OrderByDescending(x => x.SaleAmount).ToList();
-
-                            limit = descOrd.Count <= limit ? descOrd.Count : limit;
-                            for (int i = 0; i < limit; i++)
-                            {
-                                details.Add(descOrd.ElementAt(i));
-                            }
-                        }
-                        else if(chkEnCokMu.Checked)
-                        {
-                            var ascOrd = result.Data.OrderBy(x => x.SaleAmount).ToList();
-
-                            limit = ascOrd.Count <= limit ? ascOrd.Count : limit;
-                            for (int i = 0; i < limit; i++)
-                            {
-                                details.Add(ascOrd.ElementAt(i));
-                            }
-                        }
-                        else
-                        {
-                            details = result.Data;
-                        }
-
-                        dataGridView2.DataSource = details;
-                        
-                        getStatistics(details);
-
-                        lblInfo2.Text = "Bilgiler başarılı bir şekilde getirilmiştir.";
-                        return;
-                    }
-
-                    lblInfo2.Text = "Bilgiler getirilirken bir hata oluştu.";
+                    getStatistics(result.Data);
                 }
-                else
-                {
-                    lblInfo2.Text = "Bilgiler getirilirken bir hata oluştu.";
-                }
+
+                lblInfo2.Text = result.Message;
             }
             catch (Exception ex)
             {
@@ -418,8 +337,43 @@ namespace WindowsFormsApp1
             }
         }
 
-        private void getStatistics(List<SaleDetailDto> detailList)
+        private void getStatistics(List<SaleDetailDto> saleDetail)
         {
+            List<SaleDetailDto> detailList = new List<SaleDetailDto>();
+
+            if (saleDetail != null && saleDetail.Count > 0)
+            {
+                int limit = 0;
+                int.TryParse(txtSatilanUrunLimiti.Text, out limit);
+
+                if (chkEnCokMu.Checked)
+                {
+                    var descOrd = saleDetail.OrderByDescending(x => x.SaleAmount).ToList();
+
+                    limit = descOrd.Count <= limit ? descOrd.Count : limit;
+                    for (int i = 0; i < limit; i++)
+                    {
+                        detailList.Add(descOrd.ElementAt(i));
+                    }
+                }
+                else if (chkEnAzMi.Checked)
+                {
+                    var ascOrd = saleDetail.OrderBy(x => x.SaleAmount).OrderByDescending(y => y.ReturnAmount).ToList();
+
+                    limit = ascOrd.Count <= limit ? ascOrd.Count : limit;
+                    for (int i = 0; i < limit; i++)
+                    {
+                        detailList.Add(ascOrd.ElementAt(i));
+                    }
+                }
+                else
+                {
+                    detailList = saleDetail;
+                }
+
+                dataGridView2.DataSource = detailList;
+            }
+
             float toplamSatisFiyati = 0;
             float toplamAlisFiyati = 0;
             int satisSayisi = 0;
@@ -429,7 +383,7 @@ namespace WindowsFormsApp1
             foreach (var item in detailList)
             {
                 toplamSatisFiyati += item.Price * (item.SaleAmount - item.ReturnAmount);
-                toplamAlisFiyati += item.PurchasePrice * (item.SaleAmount-item.ReturnAmount);
+                toplamAlisFiyati += item.PurchasePrice * (item.SaleAmount - item.ReturnAmount);
                 satisSayisi += item.SaleAmount;
                 iadeSayisi += item.ReturnAmount;
                 if (!supplierNames.Contains(item.SupplierName))
@@ -438,7 +392,7 @@ namespace WindowsFormsApp1
                 }
             }
 
-            txtKarZarar.Text = (toplamSatisFiyati-toplamAlisFiyati).ToString();
+            txtKarZarar.Text = (toplamSatisFiyati - toplamAlisFiyati).ToString();
             txtTedarikciSayisi.Text = supplierNames.Count.ToString();
             txtUrunCesidi.Text = detailList.Count.ToString();
             txtSaleAmount.Text = satisSayisi.ToString();
@@ -463,15 +417,12 @@ namespace WindowsFormsApp1
                     txtTelNoSatis.Text = customer.Data.PhoneNumber;
                     txtMusteriAdSatis.Text = customer.Data.FirstName;
                     txtMusteriSoyadSatis.Text = customer.Data.LastName;
-
-                    lblInfo3.Text = "Müşteri getirildi.";
-                    return;
                 }
                 lblInfo3.Text = "Müşteri bulunamadı.";
             }
             catch (Exception ex)
             {
-                throw ex;
+                lblInfo3.Text = "Hata mesajı: " + ex.Message;
             }
         }
 
@@ -493,15 +444,12 @@ namespace WindowsFormsApp1
                     txtFiyatSatis.Text = product.Data.Price.ToString();
                     rxtAciklamaSatis.Text = product.Data.Description.ToString();
                     txtUrunKoduSatis.Text = product.Data.ProductCode.ToString();
-
-                    lblInfo3.Text = "Satışı yapılacak ürün getirildi.";
-                    return;
                 }
-                lblInfo3.Text = "Satışı yapılacak ürün bulunamadı.";
+                lblInfo3.Text = product.Message;
             }
             catch (Exception ex)
             {
-                throw ex;
+                lblInfo3.Text = "Hata Mesajı: " + ex.Message;
             }
         }
 
@@ -516,7 +464,7 @@ namespace WindowsFormsApp1
                     return;
                 }
 
-                Customer customer = new Customer 
+                Customer customer = new Customer
                 {
                     FirstName = txtMusteriAdSatis.Text,
                     LastName = txtMusteriSoyadSatis.Text,
@@ -524,18 +472,12 @@ namespace WindowsFormsApp1
                 };
 
                 var result = _customerService.add(customer);
-                
-                if (result.Success)
-                {
-                    lblInfo3.Text = "Müşteri başarıyla eklenmiştir. Satışa devam edebilirsiniz.";
-                    return;
-                }
 
-                lblInfo3.Text = "Müşteri eklenirken bir sorun oluştu.";
+                lblInfo3.Text = result.Message;
             }
             catch (Exception ex)
             {
-                throw ex;
+                lblInfo3.Text = "Hata Mesajı: " + ex.Message;
             }
         }
 
@@ -550,55 +492,21 @@ namespace WindowsFormsApp1
                     return;
                 }
 
-                var urunKodu = txtUrunKoduSatis.Text;
-                var urun = _productService.getProductByCode(urunKodu);
+                var productCode = txtUrunKoduSatis.Text;
+                var phoneNo = txtTelNoSatis.Text;
 
-                if (urun.Success)
+                var sale = _saleService.MakeSale(productCode, phoneNo);
+
+                if (sale.Success)
                 {
-                    var phoneNo = txtTelNoSatis.Text;
-                    var musteri = _customerService.GetCustomerByPhoneNumber(phoneNo);
-
-                    if (musteri.Success)
-                    {
-                        var stock = _stockService.getStockByProductID(urun.Data.ProductID);
-
-                        if (stock.Success)
-                        {
-                            Stock updatedStock = new Stock
-                            {
-                                ProductID = stock.Data.ProductID,
-                                StockAmount = stock.Data.StockAmount - 1,
-                                SaleAmount = stock.Data.SaleAmount + 1,
-                                ReturnAmount = stock.Data.ReturnAmount
-                            };
-                            var result = _stockService.update(updatedStock);
-
-                            if (result.Success)
-                            {
-                                Sale sale = new Sale
-                                {
-                                    ProductID = urun.Data.ProductID,
-                                    SaleDate = DateTime.Now,
-                                    CustomerID = musteri.Data.CustomerID
-                                };
-                                var satis = _saleService.add(sale);
-
-                                if (satis.Success)
-                                {
-                                    lblInfo3.Text = "Satış başarıyla tamamlandı.";
-                                    return;
-                                }
-                            }
-                        }
-                    }
+                    CreateBill(false, sale.Data);
                 }
 
-                lblInfo3.Text = "Satış işlemi sırasında bir hata oluştu.";
+                lblInfo3.Text = sale.Message;
             }
             catch (Exception ex)
             {
-                lblInfo3.Text = "Satış işlemi sırasında bir hata oluştu.";
-                throw ex;
+                lblInfo3.Text = "Hata mesajı: " + ex.Message;
             }
         }
 
@@ -615,32 +523,26 @@ namespace WindowsFormsApp1
                 int satisId = -1;
                 int.TryParse(txtSatisIDIade.Text, out satisId);
 
-                if (satisId != -1)
+                if (satisId < 0)
                 {
-                    var satis = _saleService.getSaleById(satisId);
-
-                    if (satis.Success)
-                    {
-                        var urun = _productService.getProductById(satis.Data.ProductID);
-                        var musteri = _customerService.getCustomerById(satis.Data.CustomerID);
-
-                        if (urun.Success && musteri.Success)
-                        {
-                            txtTelNoIade.Text = musteri.Data.PhoneNumber;
-                            txtUrunKoduIade.Text = urun.Data.ProductCode;
-                            txtSatisTarihiIade.Text = satis.Data.SaleDate.ToString();
-
-                            lblInfo3.Text = "İadesi bilgisi başarıyla getirildi.";
-                            return;
-                        }
-                    }
+                    lblInfo3.Text = "Satış Kodunu yanlış girdiniz.";
+                    return;
                 }
-                lblInfo3.Text = "İade bilgisi bulunamadı.";
+
+                var soldProduct = _saleService.GetSoldProduct(satisId);
+
+                if (soldProduct.Success)
+                {
+                    txtTelNoIade.Text = soldProduct.Data.PhoneNumber;
+                    txtUrunKoduIade.Text = soldProduct.Data.ProductCode;
+                    txtSatisTarihiIade.Text = soldProduct.Data.SaleDate.ToString();
+                }
+
+                lblInfo3.Text = soldProduct.Message;
             }
             catch (Exception ex)
             {
-                lblInfo3.Text = "İade bilgisi getirilirken bir hata oluştu.";
-                throw ex;
+                lblInfo3.Text = "Hata mesajı: " + ex.Message;
             }
         }
 
@@ -657,50 +559,73 @@ namespace WindowsFormsApp1
                 int satisId = -1;
                 int.TryParse(txtSatisIDIade.Text, out satisId);
 
-                if (satisId != -1)
+                if (satisId < 0)
                 {
-                    var satis = _saleService.getSaleById(satisId);
-
-                    if (satis.Success)
-                    {
-                        var stock = _stockService.getStockByProductID(satis.Data.ProductID);
-
-                        if (stock.Success)
-                        {
-                            Stock updatedStock = new Stock
-                            {
-                                ProductID = stock.Data.ProductID,
-                                StockAmount = stock.Data.StockAmount + 1,
-                                ReturnAmount = stock.Data.ReturnAmount + 1,
-                                SaleAmount = stock.Data.SaleAmount
-                            };
-
-                            var result = _stockService.update(updatedStock);
-
-                            if (result.Success)
-                            {
-                                Return iade = new Return
-                                {
-                                    SaleID = satisId,
-                                    ReturnDate = DateTime.Now
-                                };
-                                var iadeEdildi = _returnService.add(iade);
-
-                                if (iadeEdildi.Success)
-                                {
-                                    lblInfo3.Text = "Ürünün iadesi başarıyla alındı.";
-                                    return;
-                                }
-                            }
-                        }
-                    }
+                    lblInfo3.Text = "Satış Kodunu yanlış girdiniz.";
+                    return;
                 }
-                lblInfo3.Text = "İade alınamadı.";
+
+                var returnProduct = _returnService.returnProduct(satisId);
+
+                if (returnProduct.Success)
+                {
+                    CreateBill(true, satisId);
+                }
+
+                lblInfo3.Text = returnProduct.Message;
             }
             catch (Exception ex)
             {
-                lblInfo3.Text = "İade alınırken bir hata oluştu.";
-                throw ex;
+                lblInfo3.Text = "Hata mesajı: " + ex.Message;
+            }
+        }
+
+        private void CreateBill(bool isReturn,int SaleCode)
+        {
+            try
+            {
+                var saleDetail = _returnService.getSaleReturnDetails(SaleCode);
+
+                if (saleDetail.Success)
+                {
+                    txtAdFatura.Text = saleDetail.Data.FirstName;
+                    txtSoyadFatura.Text = saleDetail.Data.LastName;
+                    txtTelNoFatura.Text = saleDetail.Data.PhoneNumber;
+
+                    txtUrunKoduFatura.Text = saleDetail.Data.ProductCode;
+                    rxtAciklamaFatura.Text = saleDetail.Data.Description;
+                    
+                    txtSatisFiyatiFatura.Text = saleDetail.Data.Price.ToString();
+                    txtSatisTarihiFatura.Text = saleDetail.Data.SaleDate.ToString();
+
+                    if (isReturn)
+                    {
+                        txtIadeTutariFatura.Visible = true;
+                        txtIadeTarihiFatura.Visible = true;
+                        txtIadeKoduFatura.Visible = true;
+                        lblIadeTarihiFatura.Visible = true;
+                        lblIadeTutariFatura.Visible = true;
+                        lblIadeKoduFatura.Visible = true;
+                        
+                        txtIadeTutariFatura.Text = saleDetail.Data.Price.ToString();
+                        txtIadeTarihiFatura.Text = saleDetail.Data.ReturnDate.ToString();
+                    }
+                    else
+                    {
+                        txtIadeKoduFatura.Visible = false;
+                        txtIadeTutariFatura.Visible = false;
+                        txtIadeTarihiFatura.Visible = false;
+                        lblIadeKoduFatura.Visible = false;
+                        lblIadeTarihiFatura.Visible = false;
+                        lblIadeTutariFatura.Visible = false;
+                    }
+                }
+
+                lblInfo3.Text = saleDetail.Message;
+            }
+            catch (Exception ex)
+            {
+                lblInfo3.Text = "Hata mesajı: " + ex.Message;
             }
         }
     }

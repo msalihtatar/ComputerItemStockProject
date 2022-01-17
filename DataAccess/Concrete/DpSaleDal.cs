@@ -18,15 +18,17 @@ namespace DataAccess.Concrete
             _dbConnection = dbConnection;
         }
 
-        public void add(Sale sale)
+        public int add(Sale sale)
         {
             try
             {
                 string sql = string.Format(System.Globalization.CultureInfo.InvariantCulture,
                                         @"INSERT INTO Sales (ProductID, CustomerID, SaleDate)
-                                            VALUES ({0},{1},'{2}')", sale.ProductID,sale.CustomerID,sale.SaleDate);
+                                            VALUES ({0},{1},'{2}') SELECT CAST(scope_identity() AS int)", sale.ProductID,sale.CustomerID,sale.SaleDate);
 
-                _dbConnection.ExecuteScalar(sql);
+                var saleID = _dbConnection.ExecuteScalar<int>(sql);
+
+                return saleID;
             }
             catch (Exception e)
             {
@@ -54,6 +56,8 @@ namespace DataAccess.Concrete
         {
             try
             {
+                endDate = endDate.AddYears(1);
+                
                 string sql = string.Format(@"Select  p.ProductCode,
                                                      p.ProductName,
                                                      Count(sa.SaleID) SaleAmount,

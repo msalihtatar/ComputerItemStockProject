@@ -43,8 +43,6 @@ namespace WindowsFormsApp1
             string connstr = ConfigurationManager.ConnectionStrings["dbConnection"].ToString();
 
             var conn = new SqlConnection(connstr);
-            //builder.Register<IDbConnection>(x => conn).InstancePerLifetimeScope();
-
 
             services.AddScoped<ICustomerDal, DpCustomerDal>()
                     .AddScoped<ICustomerService, CustomerManager>()

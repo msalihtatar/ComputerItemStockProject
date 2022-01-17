@@ -8,7 +8,7 @@ namespace DataAccess.Abstract
 {
     public interface ISaleDal
     {
-        void add(Sale sale);
+        int add(Sale sale);
         List<SaleDetailDto> getSaleDetails(DateTime startDate, DateTime endDate);
         Sale getSaleById(int saleId);
     }

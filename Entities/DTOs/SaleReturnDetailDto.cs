@@ -9,6 +9,7 @@ namespace Entities.DTOs
     {
         public int SaleID { get; set; }
         public string ProductCode { get; set; }
+        public string Description { get; set; }
         public float Price { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

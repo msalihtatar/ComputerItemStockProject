@@ -1,5 +1,6 @@
 ﻿using Core.Utilities.Results;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,6 +9,7 @@ namespace Business.Abstract
 {
     public interface IReturnService
     {
-        IResult add(Return return1);
+        IDataResult<SaleReturnDetailDto> getSaleReturnDetails(int SaleID);
+        IResult returnProduct(int SaleID);
     }
 }
