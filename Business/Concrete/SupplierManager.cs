@@ -23,7 +23,7 @@ namespace Business.Concrete
             {
                 return new SuccessDataResult<List<Supplier>>(result, "Tedarikçiler listelendi.");
             }
-            return new ErrorDataResult<List<Supplier>>(null, "Tedarikçiler getirilirken bir hata oluştu.");
+            return new ErrorDataResult<List<Supplier>>(null, "Tedarikçi bulunamadı.");
         }
     }
 }

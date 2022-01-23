@@ -46,6 +46,7 @@ namespace DataAccess.Concrete
                                       p.Description,
 		                              p.Price,
 		                              s.SaleDate,
+                                      r.ReturnID,
 		                              r.ReturnDate
                               From Sales s 
                               Left Join Returns r on r.SaleID = s.SaleID

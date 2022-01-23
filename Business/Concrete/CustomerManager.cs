@@ -37,7 +37,7 @@ namespace Business.Concrete
             {
                 return new SuccessDataResult<Customer>(result, "Müşteri getirildi.");
             }
-            return new ErrorDataResult<Customer>(null, "Müşteri getirilirken bir hata oluştu.");
+            return new ErrorDataResult<Customer>(null, "Müşteri bulunamadı.");
         }
 
         public IDataResult<Customer> GetCustomerByPhoneNumber(string phoneNo)
@@ -47,7 +47,7 @@ namespace Business.Concrete
             {
                 return new SuccessDataResult<Customer>(result, "Müşteri getirildi.");
             }
-            return new ErrorDataResult<Customer>(null, "Müşteri getirilirken bir hata oluştu.");
+            return new ErrorDataResult<Customer>(null, "Müşteri bulunamadı.");
         }
     }
 }

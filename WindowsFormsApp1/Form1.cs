@@ -131,7 +131,7 @@ namespace WindowsFormsApp1
                 {
                     dataGridView1.DataSource = sonuc.Data;
                 }
-                return "Ürün bulunamadı.";
+                return sonuc.Message;
             }
             catch (Exception ex)
             {
@@ -155,7 +155,17 @@ namespace WindowsFormsApp1
                             var result = _productService.deleteProductToStock(int.Parse(productId), productCode);
                             if (result.Success)
                             {
-                                grpUrunList.Text = "";
+                                txtUrunAdiListe.Text = string.Empty;
+                                txtUrunKoduListe.Text = string.Empty;
+                                txtStokSayisiListe.Text = string.Empty;
+                                txtMenseiListe.Text = string.Empty;
+                                txtAciklamaListe.Text = string.Empty;
+                                txtPriceListe.Text = string.Empty;
+                                txtBrandListe.Text = string.Empty;
+                                txtAlisFiyatiList.Text = string.Empty;
+
+                                dataGridView1.DataSource = null;
+
                                 lblInfo.Text = result.Message;
                             }
                         }
@@ -171,8 +181,6 @@ namespace WindowsFormsApp1
                     lblInfo.Text = "Seçili ürün getirilirken bir hata oluştu.";
                     return;
                 }
-
-                btnList_Click(sender, e);
             }
             catch (Exception ex)
             {
@@ -418,7 +426,7 @@ namespace WindowsFormsApp1
                     txtMusteriAdSatis.Text = customer.Data.FirstName;
                     txtMusteriSoyadSatis.Text = customer.Data.LastName;
                 }
-                lblInfo3.Text = "Müşteri bulunamadı.";
+                lblInfo3.Text = customer.Message;
             }
             catch (Exception ex)
             {
@@ -594,7 +602,8 @@ namespace WindowsFormsApp1
 
                     txtUrunKoduFatura.Text = saleDetail.Data.ProductCode;
                     rxtAciklamaFatura.Text = saleDetail.Data.Description;
-                    
+
+                    txtSatisKoduFatura.Text = saleDetail.Data.SaleID.ToString();
                     txtSatisFiyatiFatura.Text = saleDetail.Data.Price.ToString();
                     txtSatisTarihiFatura.Text = saleDetail.Data.SaleDate.ToString();
 
@@ -606,7 +615,8 @@ namespace WindowsFormsApp1
                         lblIadeTarihiFatura.Visible = true;
                         lblIadeTutariFatura.Visible = true;
                         lblIadeKoduFatura.Visible = true;
-                        
+
+                        txtIadeKoduFatura.Text = saleDetail.Data.ReturnID.ToString();
                         txtIadeTutariFatura.Text = saleDetail.Data.Price.ToString();
                         txtIadeTarihiFatura.Text = saleDetail.Data.ReturnDate.ToString();
                     }

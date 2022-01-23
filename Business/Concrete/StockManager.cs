@@ -49,7 +49,7 @@ namespace Business.Concrete
             {
                 return new SuccessDataResult<Stock>(result, "Stok getirildi.");
             }
-            return new ErrorDataResult<Stock>(null, "Stok getirilirken bir hata oluştu.");
+            return new ErrorDataResult<Stock>(null, "Stok bilgisi bulunamadı.");
         }
 
         public IResult update(Stock stock)

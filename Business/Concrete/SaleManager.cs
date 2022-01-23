@@ -63,7 +63,7 @@ namespace Business.Concrete
                         SaleDate = sale.Data.SaleDate
                     };
 
-                    return new SuccessDataResult<SoldProductDetailDto>(soldProduct, "Satış bilgisi getirilmiştir.");
+                    return new SuccessDataResult<SoldProductDetailDto>(soldProduct, "Satış bilgisi getirildi.");
                 }
                 return new ErrorDataResult<SoldProductDetailDto>(null, sale.Message);
             }
@@ -83,7 +83,7 @@ namespace Business.Concrete
                 {
                     return new SuccessDataResult<Sale>(result, "Satış bilgisi listelendi.");
                 }
-                return new ErrorDataResult<Sale>(null, "Satış bilgisi getirilirken bir hata oluştu.");
+                return new ErrorDataResult<Sale>(null, "Satış bilgisi bulunamadı.");
             }
             catch (Exception e)
             {
@@ -101,7 +101,7 @@ namespace Business.Concrete
                 {
                     return new SuccessDataResult<List<SaleDetailDto>>(result, "Satışı yapılan ürünler listelendi.");
                 }
-                return new ErrorDataResult<List<SaleDetailDto>>(null, "Ürünler getirilirken bir hata oluştu.");
+                return new ErrorDataResult<List<SaleDetailDto>>(null, "Ürün bulunamadı.");
             }
             catch (Exception e)
             {

@@ -94,7 +94,7 @@ namespace Business.Concrete
             {
                 return new SuccessDataResult<SaleReturnDetailDto>(result, "Satışlar listelendi.");
             }
-            return new ErrorDataResult<SaleReturnDetailDto>(null, "Satış bilgileri getirilirken bir hata oluştu.");
+            return new ErrorDataResult<SaleReturnDetailDto>(null, "Satış bilgisi bulunamadı.");
         }
     }
 }

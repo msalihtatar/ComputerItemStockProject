@@ -141,7 +141,7 @@ namespace Business.Concrete
                 {
                     return new SuccessDataResult<List<ProductDetailDto>>(result, "Stoğu azalan ürünler listelendi.");
                 }
-                return new ErrorDataResult<List<ProductDetailDto>>(null, "Ürünler getirilirken bir hata oluştu.");
+                return new ErrorDataResult<List<ProductDetailDto>>(null, "Ürün bulunamadı.");
             }
             catch (Exception e)
             {
@@ -159,7 +159,7 @@ namespace Business.Concrete
                 {
                     return new SuccessDataResult<Product>(result, "Ürünler listelendi.");
                 }
-                return new ErrorDataResult<Product>(null, "Ürünler getirilirken bir hata oluştu.");
+                return new ErrorDataResult<Product>(null, "Ürün bulunamadı.");
             }
             catch (Exception ex)
             {
@@ -177,7 +177,7 @@ namespace Business.Concrete
                 {
                     return new SuccessDataResult<List<ProductDetailDto>>(result, "Ürünler listelendi.");
                 }
-                return new ErrorDataResult<List<ProductDetailDto>>(null, "Ürünler getirilirken bir hata oluştu.");
+                return new ErrorDataResult<List<ProductDetailDto>>(null, "Ürün bulunamadı.");
             }
             catch (Exception e)
             {
@@ -193,7 +193,7 @@ namespace Business.Concrete
             {
                 return new SuccessDataResult<Product>(result, "Ürün getirildi.");
             }
-            return new ErrorDataResult<Product>(null, "Ürün getirilirken bir hata oluştu.");
+            return new ErrorDataResult<Product>(null, "Ürün bulunamadı.");
         }
 
         public IResult update(Product product)

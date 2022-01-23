@@ -8,6 +8,7 @@ namespace Entities.DTOs
     public class SaleReturnDetailDto:IDto
     {
         public int SaleID { get; set; }
+        public int ReturnID { get; set; }
         public string ProductCode { get; set; }
         public string Description { get; set; }
         public float Price { get; set; }
